@@ -19,7 +19,7 @@ function writeHMM(hmmDc::DSH, shParams::DSA) where DSH <: Dict{S, HMM} where DSA
   if haskey(shParams, "outDir") && haskey(shParams, "input")
 
     # check for existing path
-    outPath = string(shParams["outDir"], "hmm/")
+    outPath = string(shParams["outDir"], "/hmm/")
     if !isdir(outPath)
       mkpath(outPath)
     end
