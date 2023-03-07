@@ -55,6 +55,7 @@ function writeHMM(filePrefix::S, hmmDc::DSH) where DSH <: Dict{S, HMM} where S <
     filename = string(filePrefix, string(κ))
     writeHMM(string(filename, "_traceback", ".csv"), υ.traceback, κ)
     writeHMM(string(filename, "_model", ".csv"), υ.model)
+    writeHMM(string(filename, "_states", ".csv"), υ.data)
   end
 end
 
