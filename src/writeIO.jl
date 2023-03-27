@@ -52,14 +52,11 @@ See also: [`reconstructHMM`](@ref)
 function writeHMM(filePrefix::S, hmmDc::DSH) where DSH <: Dict{S, HMM} where S <: String
   for (κ, υ) ∈ hmmDc
     # check for existing path
-    path = string(filePrefix, "/", κ, "/")
-    if !isdir(path)
-      mkpath(path)
-    end
-    filename = string(path, string(κ))
-    writeHMM(string("traceback", ".csv"), υ.traceback, κ)
-    writeHMM(string("model", ".csv"), υ.model)
-    writeHMM(string("states", ".csv"), υ.data)
+    path = string(filePrefix, κ, "/")
+    mkpath(path)
+    writeHMM(string(path, "traceback", ".csv"), υ.traceback, κ)
+    writeHMM(string(path, "model", ".csv"), υ.model)
+    writeHMM(string(path, "states", ".csv"), υ.data)
   end
 end
 
