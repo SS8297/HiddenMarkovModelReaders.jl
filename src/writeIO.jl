@@ -19,16 +19,15 @@ function writeHMM(hmmDc::DSH, shParams::DSA) where DSH <: Dict{S, HMM} where DSA
   if haskey(shParams, "outDir") && haskey(shParams, "input")
 
     # check for existing path
-    outPath = string(shParams["outDir"], "/hmm/")
+    outPath = string(shParams["outDir"])
     if !isdir(outPath)
       mkpath(outPath)
     end
 
     return writeHMM(
       string(
-        outPath,
-        replace(shParams["input"], ".edf" => "_")
-      ),
+        outPath
+        ),
       hmmDc,
     )
   else
@@ -52,10 +51,15 @@ See also: [`reconstructHMM`](@ref)
 """
 function writeHMM(filePrefix::S, hmmDc::DSH) where DSH <: Dict{S, HMM} where S <: String
   for (κ, υ) ∈ hmmDc
-    filename = string(filePrefix, string(κ))
-    writeHMM(string(filename, "_traceback", ".csv"), υ.traceback, κ)
-    writeHMM(string(filename, "_model", ".csv"), υ.model)
-    writeHMM(string(filename, "_states", ".csv"), υ.data)
+    # check for existing path
+    path = string(filePrefix, "/", κ, "/")
+    if !isdir(path)
+      mkpath(path)
+    end
+    filename = string(path, string(κ))
+    writeHMM(string("traceback", ".csv"), υ.traceback, κ)
+    writeHMM(string("model", ".csv"), υ.model)
+    writeHMM(string("states", ".csv"), υ.data)
   end
 end
 
