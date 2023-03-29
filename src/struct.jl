@@ -53,6 +53,7 @@ See also: [`HMM`](@ref), [`setup`](@ref), [`euclideanDistance`](@ref), [`bhattac
   minimumFrequency::Int64    = 20       # minimum frequency for state split
   verbosity::Bool            = false    # verbosity level
   distance::Function         = distance # distance function
+  states::Int64              = 5        # maximum number of states
 end
 
 ####################################################################################################
