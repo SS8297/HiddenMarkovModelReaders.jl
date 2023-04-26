@@ -72,3 +72,26 @@ function amplitude(ɒ::V) where V <: Vector{N} where N <: Number
 end
 
 ####################################################################################################
+"""
+    DynamicTimeWarping(ɒ::Vx, ʌ::Vy)
+      where Vx <: Vector{Nx}
+      where Vy <: Vector{Ny}
+      where Nx <: Number
+      where Ny <: Number
+
+# Description
+Euclidean distance.
+
+# Examples
+```
+julia> euclideanDistance(collect(1:10), fill(5, 10))
+9.219544457292887
+```
+
+See also: [`bhattacharyyaDistance`](@ref), [`amplitude`](@ref)
+"""
+function DynamicTimeWarping(ɒ::Vx, ʌ::Vy) where Vx <: Vector{Nx} where Vy <: Vector{Ny} where Nx <: Number where Ny <: Number
+  return (ɒ .- ʌ) .^ 2 |> sum |> sqrt
+end
+
+####################################################################################################
