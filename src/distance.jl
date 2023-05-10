@@ -73,7 +73,7 @@ end
 
 ####################################################################################################
 """
-    DynamicTimeWarping(ɒ::Vx, ʌ::Vy)
+    DTW(ɒ::Vx, ʌ::Vy)
       where Vx <: Vector{Nx}
       where Vy <: Vector{Ny}
       where Nx <: Number
@@ -90,7 +90,31 @@ julia> DTW(collect(1:10), fill(5, 10))
 
 See also: [`bhattacharyyaDistance`](@ref), [`amplitude`](@ref)
 """
-function DynamicTimeWarping(ɒ::Vx, ʌ::Vy) where Vx <: Vector{Nx} where Vy <: Vector{Ny} where Nx <: Number where Ny <: Number
+function DTW(ɒ::Vx, ʌ::Vy) where Vx <: Vector{Nx} where Vy <: Vector{Ny} where Nx <: Number where Ny <: Number
+  return (ɒ .- ʌ) .^ 2 |> sum |> sqrt
+end
+
+####################################################################################################
+
+"""
+    DTW(ɒ::Vx, ʌ::Vy)
+      where Vx <: Vector{Nx}
+      where Vy <: Vector{Ny}
+      where Nx <: Number
+      where Ny <: Number
+
+# Description
+Isometric mapping.
+
+# Examples
+```
+julia> DTW(collect(1:10), fill(5, 10))
+9.219544457292887
+```
+
+See also: [`bhattacharyyaDistance`](@ref), [`amplitude`](@ref)
+"""
+function isomap(ɒ::Vx, ʌ::Vy) where Vx <: Vector{Nx} where Vy <: Vector{Ny} where Nx <: Number where Ny <: Number
   return (ɒ .- ʌ) .^ 2 |> sum |> sqrt
 end
 
