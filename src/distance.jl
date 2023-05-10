@@ -80,11 +80,11 @@ end
       where Ny <: Number
 
 # Description
-Euclidean distance.
+Dynamic time warping.
 
 # Examples
 ```
-julia> euclideanDistance(collect(1:10), fill(5, 10))
+julia> DTW(collect(1:10), fill(5, 10))
 9.219544457292887
 ```
 
@@ -93,5 +93,33 @@ See also: [`bhattacharyyaDistance`](@ref), [`amplitude`](@ref)
 function DynamicTimeWarping(ɒ::Vx, ʌ::Vy) where Vx <: Vector{Nx} where Vy <: Vector{Ny} where Nx <: Number where Ny <: Number
   return (ɒ .- ʌ) .^ 2 |> sum |> sqrt
 end
+
+####################################################################################################
+
+"""
+    DTW(ɒ::Vx, ʌ::Vy)
+      where Vx <: Vector{Nx}
+      where Vy <: Vector{Ny}
+      where Nx <: Number
+      where Ny <: Number
+
+# Description
+Euclidean distance of cumulative spectra.
+
+# Examples
+```
+julia> DTW(collect(1:10), fill(5, 10))
+9.219544457292887
+```
+
+See also: [`bhattacharyyaDistance`](@ref), [`amplitude`](@ref)
+"""
+function ECS(ɒ::Vx, ʌ::Vy) where Vx <: Vector{Nx} where Vy <: Vector{Ny} where Nx <: Number where Ny <: Number
+  return (abs.(cumsum(ɒ) .- cumsum(ʌ))) .^ 2 |> sum |> sqrt
+end
+
+# function MSE(ɒ::Vx, ʌ::Vy) where Vx <: Vector{Nx} where Vy <: Vector{Ny} where Nx <: Number where Ny <: Number
+#   return (ɒ .- ʌ) .^ 2 |> mean
+# end
 
 ####################################################################################################
