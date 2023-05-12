@@ -90,7 +90,7 @@ julia> DTW(collect(1:10), fill(5, 10))
 
 See also: [`bhattacharyyaDistance`](@ref), [`amplitude`](@ref)
 """
-function DTW(ɒ::Vx, ʌ::Vy) where Vx <: Vector{Nx} where Vy <: Vector{Ny} where Nx <: Number where Ny <: Number
+function dtw(ɒ::Vx, ʌ::Vy) where Vx <: Vector{Nx} where Vy <: Vector{Ny} where Nx <: Number where Ny <: Number
   return (ɒ .- ʌ) .^ 2 |> sum |> sqrt
 end
 
@@ -138,7 +138,7 @@ julia> DTW(collect(1:10), fill(5, 10))
 
 See also: [`bhattacharyyaDistance`](@ref), [`amplitude`](@ref)
 """
-function ECS(ɒ::Vx, ʌ::Vy) where Vx <: Vector{Nx} where Vy <: Vector{Ny} where Nx <: Number where Ny <: Number
+function ecs(ɒ::Vx, ʌ::Vy) where Vx <: Vector{Nx} where Vy <: Vector{Ny} where Nx <: Number where Ny <: Number
   return (abs.(cumsum(ɒ) .- cumsum(ʌ))) .^ 2 |> sum |> sqrt
 end
 
