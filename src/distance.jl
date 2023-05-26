@@ -147,3 +147,8 @@ end
 # end
 
 ####################################################################################################
+
+function sad(target::Array, origin::Array; dist::Function = ecs, sumdim::Int = 2)
+sumdim == 1 && return sum(abs.(map(x -> dist(collect(x[1]), collect(x[2])), zip(eachcol(target),eachcol(origin)))))
+sumdim == 2 && return sum(abs.(map(x -> dist(collect(x[1]), collect(x[2])), zip(eachrow(target),eachrow(origin)))))
+end
