@@ -3,7 +3,7 @@
 "Feed on hidden Markov model object."
 function feed!(∫::HMM, frame::I, ɒ::M; params::HMMParams) where I <: Int64 where M <: Matrix{F} where F <: Float64
   for ι ∈ eachindex(∫.model)
-    plus = params.distance(∫.data[ι], ɒ[frame, :])
+    plus = sad(∫.data[ι], ɒ[frame, :, :], dist = params.distance)
     for ο ∈ eachindex(∫.model)
       lpen = copy(params.penalty)
       if (ο == ι) lpen = 0 end

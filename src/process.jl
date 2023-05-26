@@ -32,7 +32,7 @@ function process!(∫::HMM, ɒ::M, ϟ::B; params::HMMParams) where M <: Matrix{N
   # backtrace
   backTrace(∫)
 
-  divider = fill(1, size(∫.data, 1))
+  denoms = fill(1, size(∫.data, 1))
   orig = deepcopy(∫.data)
   scorePair = StructArray{ScorePair}(undef, 0)
 
@@ -41,9 +41,9 @@ function process!(∫::HMM, ɒ::M, ϟ::B; params::HMMParams) where M <: Matrix{N
   mcount = zeros(Float64, size(∫.data))
 
   for ι ∈ axes(ɒ, 1)
-    ∫.data[∫.traceback[ι]] .+= ɒ[ι, :]
-    divider[∫.traceback[ι]] += 1
-    pair = ScorePair(params.distance(orig[∫.traceback[ι]], ɒ[ι, :]), ι)
+    ∫.data[∫.traceback[ι]] .+= ɒ[ι, :, :] #sum
+    denoms[∫.traceback[ι]] += 1
+    pair = ScorePair(sad(orig[∫.traceback[ι]], ɒ[ι, :, :], dist = params.distance), ι)
 
     mdist[∫.traceback[ι]] += pair.score
     mcount[∫.traceback[ι]] += 1
@@ -57,7 +57,7 @@ function process!(∫::HMM, ɒ::M, ϟ::B; params::HMMParams) where M <: Matrix{N
 
   # update / normalize models
   for ι ∈ eachindex(∫.data)
-    ∫.data[ι] /= divider[ι]
+    ∫.data[ι] /= denoms[ι]
   end
 
   if params.verbosity
@@ -108,7 +108,7 @@ function process!(∫::HMM, ɒ::M, ϟ::B; params::HMMParams) where M <: Matrix{N
 
   push!(∫.data, extra)
 
-  push!(∫.model, fill(0, size(∫.model[1], 1)))
+  push!(∫.model, fill(0, size(∫.model[1])))
 
   return
 
