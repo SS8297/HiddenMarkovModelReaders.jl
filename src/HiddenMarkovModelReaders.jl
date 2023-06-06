@@ -21,7 +21,7 @@ export setup, process!
 export HMM, HMMParams
 
 # distance functions
-export euclideanDistance, bhattacharyyaDistance, ecs
+export euclideanDistance, bhattacharyyaDistance, ecs, sad, dtw, isomap
 
 # amplitude
 export amplitude
