@@ -29,7 +29,7 @@ Hidden Markov model object.
 See also: [`HMMParams`](@ref), [`setup`](@ref),
 """
 mutable struct HMM
-  data::Vector{Vector{AbstractFloat}}
+  data::Vector{Matrix{AbstractFloat}}
   model::Vector{Vector{AbstractFloat}}
   traceback::Vector{Int64}
 end
