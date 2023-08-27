@@ -72,29 +72,6 @@ function amplitude(ɒ::V) where V <: Vector{N} where N <: Number
 end
 
 ####################################################################################################
-"""
-    DTW(ɒ::Vx, ʌ::Vy)
-      where Vx <: Vector{Nx}
-      where Vy <: Vector{Ny}
-      where Nx <: Number
-      where Ny <: Number
-
-# Description
-Dynamic time warping.
-
-# Examples
-```
-julia> DTW(collect(1:10), fill(5, 10))
-9.219544457292887
-```
-
-See also: [`bhattacharyyaDistance`](@ref), [`amplitude`](@ref)
-"""
-function dtw(ɒ::Vx, ʌ::Vy) where Vx <: Vector{Nx} where Vy <: Vector{Ny} where Nx <: Number where Ny <: Number
-  return (ɒ .- ʌ) .^ 2 |> sum |> sqrt
-end
-
-####################################################################################################
 
 """
     DTW(ɒ::Vx, ʌ::Vy)
@@ -145,6 +122,56 @@ end
 # function MSE(ɒ::Vx, ʌ::Vy) where Vx <: Vector{Nx} where Vy <: Vector{Ny} where Nx <: Number where Ny <: Number
 #   return (ɒ .- ʌ) .^ 2 |> mean
 # end
+
+####################################################################################################
+
+"""
+    DTW(ɒ::Vx, ʌ::Vy)
+      where Vx <: Vector{Nx}
+      where Vy <: Vector{Ny}
+      where Nx <: Number
+      where Ny <: Number
+
+# Description
+Dynamic time warping.
+
+# Examples
+```
+julia> DTW(collect(1:10), fill(5, 10))
+9.219544457292887
+```
+
+See also: [`bhattacharyyaDistance`](@ref), [`amplitude`](@ref)
+"""
+
+function sad(target::Array, origin::Array; dist::Function = ecs, sumdim::Int = 2)
+sumdim == 1 && return sum(abs.(map(x -> dist(collect(x[1]), collect(x[2])), zip(eachcol(target),eachcol(origin)))))
+sumdim == 2 && return sum(abs.(map(x -> dist(collect(x[1]), collect(x[2])), zip(eachrow(target),eachrow(origin)))))
+end
+
+####################################################################################################
+
+"""
+    DTW(ɒ::Vx, ʌ::Vy)
+      where Vx <: Vector{Nx}
+      where Vy <: Vector{Ny}
+      where Nx <: Number
+      where Ny <: Number
+
+# Description
+Dynamic time warping.
+
+# Examples
+```
+julia> DTW(collect(1:10), fill(5, 10))
+9.219544457292887
+```
+
+See also: [`bhattacharyyaDistance`](@ref), [`amplitude`](@ref)
+"""
+function dtw(ɒ::Vx, ʌ::Vy) where Vx <: Vector{Nx} where Vy <: Vector{Ny} where Nx <: Number where Ny <: Number
+  return (ɒ .- ʌ) .^ 2 |> sum |> sqrt
+end
 
 ####################################################################################################
 
