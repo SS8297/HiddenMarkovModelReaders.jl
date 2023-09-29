@@ -72,6 +72,29 @@ function amplitude(ɒ::V) where V <: Vector{N} where N <: Number
 end
 
 ####################################################################################################
+"""
+
+    amplitude(ɒ::V)
+      where V <: Vector{N}
+      where N <: Number
+
+# Description
+Amplitude.
+
+# Examples
+```
+julia> amplitude(collect(1:10))
+19.621416870348583
+```
+
+
+See also: [`euclideanDistance`](@ref), [`bhattacharyyaDistance`](@ref)
+"""
+function amplitude(ɒ::M) where M <: Matrix{N} where N <: Number
+  return ɒ .^ 2 |> sum |> sqrt
+end
+
+####################################################################################################
 
 """
     DTW(ɒ::Vx, ʌ::Vy)
